@@ -1,0 +1,1086 @@
+@import 'tailwindcss';
+
+@source "../views";
+
+/* Tipografía: Poppins se carga desde <head> via Google Fonts.
+   Cuando tengas Gilroy (.woff2), reemplaza por @font-face locales aquí. */
+
+/* ============================================
+   THEME: Brand Design Tokens
+   ============================================ */
+@theme {
+    /* Typography */
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Brand Colors - Primary */
+    --color-ugarte-primary: #532B7C;
+    --color-ugarte-primary-light: #7A4FA8;
+    --color-ugarte-primary-dark: #3E1F5E;
+    --color-ugarte-primary-50: #F8F5FC;
+    --color-ugarte-primary-100: #EDE5F5;
+
+    /* Brand Colors - Secondary */
+    --color-ugarte-secondary: #653F87;
+    --color-ugarte-secondary-light: #8B66A8;
+    --color-ugarte-secondary-dark: #4D2E66;
+
+    /* Brand Colors - Neutrals */
+    --color-ugarte-black: #1D1D1B;
+    --color-ugarte-white: #FFFFFF;
+    --color-ugarte-bg: #F8F5FC;
+    --color-ugarte-bg-warm: #FDFBFF;
+    --color-ugarte-border: #E8DDF0;
+
+    /* Program Accent Colors */
+    --color-programa-unas: #E8732A;
+    --color-programa-microblading: #1B2A4A;
+    --color-programa-maquillaje: #E91E8C;
+    --color-programa-podologia: #2ABFBF;
+    --color-programa-estilismo: #7B3FA0;
+    --color-programa-barberia: #1D1D1B;
+    --color-programa-pestanas: #00B4D8;
+    --color-programa-dermopigmentacion: #6B7280;
+
+    /* Semantic Colors */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-info: #3B82F6;
+
+    /* Shadows — Premium multi-layer (Apple-inspired) */
+    --shadow-card: 0 1px 2px rgba(83, 43, 124, 0.04),
+                   0 4px 12px rgba(83, 43, 124, 0.06),
+                   0 12px 32px rgba(83, 43, 124, 0.05);
+    --shadow-card-hover: 0 2px 4px rgba(83, 43, 124, 0.06),
+                         0 12px 28px rgba(83, 43, 124, 0.1),
+                         0 24px 56px rgba(83, 43, 124, 0.08);
+    --shadow-button: 0 2px 8px rgba(83, 43, 124, 0.2),
+                     0 8px 24px rgba(83, 43, 124, 0.15);
+    --shadow-navbar: 0 1px 0 rgba(83, 43, 124, 0.06),
+                     0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   BASE LAYER — Premium foundation
+   ============================================ */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--color-ugarte-black);
+        overflow-x: hidden;
+    }
+
+    /* Premium text selection */
+    ::selection {
+        background: rgba(83, 43, 124, 0.15);
+        color: var(--color-ugarte-primary-dark);
+    }
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    /* Smoother image rendering */
+    img {
+        image-rendering: auto;
+    }
+}
+
+/* ============================================
+   COMPONENT LAYER — Elevated spacing
+   ============================================ */
+@layer components {
+    .section-container {
+        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .section-padding {
+        @apply py-20 md:py-24 lg:py-32;
+    }
+
+    .section-padding-sm {
+        @apply py-14 md:py-20;
+    }
+
+    .section-padding-lg {
+        @apply py-24 md:py-32 lg:py-40;
+    }
+}
+
+/* ============================================
+   UTILITIES LAYER
+   ============================================ */
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .animation-delay-200 {
+        animation-delay: 200ms;
+    }
+
+    .animation-delay-400 {
+        animation-delay: 400ms;
+    }
+}
+
+/* ============================================
+   PREMIUM VISUAL ENHANCEMENTS
+   (All via CSS selectors — no HTML changes)
+   ============================================ */
+
+/* ——————————————————————————
+   1. NAVBAR — Glass morphism elevated
+   —————————————————————————— */
+header[x-data="navbar"] {
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+header[x-data="navbar"].bg-white\/95 {
+    border-bottom: 1px solid rgba(232, 221, 240, 0.5);
+}
+
+/* Desktop nav links — smoother transitions */
+header[x-data="navbar"] nav a {
+    position: relative;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Underline effect on desktop nav links */
+header[x-data="navbar"] nav > div.hidden.md\:flex a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-ugarte-primary), var(--color-ugarte-secondary));
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(-50%);
+    border-radius: 1px;
+}
+
+header[x-data="navbar"] nav > div.hidden.md\:flex a:hover::after {
+    width: 100%;
+}
+
+/* CTA button in navbar — pulse glow */
+header[x-data="navbar"] nav .bg-ugarte-primary {
+    position: relative;
+}
+
+header[x-data="navbar"] nav .bg-ugarte-primary::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--color-ugarte-primary), var(--color-ugarte-secondary-light));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    filter: blur(8px);
+}
+
+header[x-data="navbar"] nav .bg-ugarte-primary:hover::before {
+    opacity: 0.5;
+}
+
+/* ——————————————————————————
+   2. HERO — Dramatic gradient mesh + floating elements
+   —————————————————————————— */
+#hero {
+    position: relative;
+}
+
+/* Mesh gradient orbs — floating in the hero */
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    width: 50vw;
+    height: 50vw;
+    max-width: 600px;
+    max-height: 600px;
+    background: radial-gradient(circle, rgba(139, 102, 168, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: heroOrb1 12s ease-in-out infinite;
+}
+
+#hero::after {
+    content: '';
+    position: absolute;
+    bottom: 5%;
+    left: -5%;
+    width: 40vw;
+    height: 40vw;
+    max-width: 450px;
+    max-height: 450px;
+    background: radial-gradient(circle, rgba(232, 115, 42, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: heroOrb2 15s ease-in-out infinite;
+}
+
+@keyframes heroOrb1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-30px, 20px) scale(1.05); }
+    66% { transform: translate(20px, -15px) scale(0.97); }
+}
+
+@keyframes heroOrb2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    40% { transform: translate(25px, -20px) scale(1.03); }
+    70% { transform: translate(-15px, 15px) scale(0.98); }
+}
+
+/* Hero heading — letter spacing refinement */
+#hero h1 {
+    letter-spacing: -0.03em;
+    line-height: 1.05 !important;
+}
+
+/* Hero badge — glass effect */
+#hero .bg-white\/20 {
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero buttons — premium hover with lift */
+#hero a[href],
+#hero button {
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#hero a.bg-white:hover,
+#hero a[class*="bg-white"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.3);
+}
+
+/* ——————————————————————————
+   3. SECTION HEADINGS — Decorated line animation
+   —————————————————————————— */
+/* Decorative line pulse animation */
+[class*="section-heading"] .h-1.w-16,
+.mb-12 .h-1.w-16,
+.mb-12.md\:mb-16 .h-1.w-16 {
+    background: linear-gradient(90deg, var(--color-ugarte-primary), var(--color-ugarte-secondary-light), var(--color-ugarte-primary));
+    background-size: 200% 100%;
+    animation: shimmerLine 4s ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmerLine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ——————————————————————————
+   4. CARDS — Premium elevation & hover states
+   —————————————————————————— */
+/* Default/bordered cards — refined borders and shadows */
+.shadow-card,
+[class*="shadow-card"]:not([class*="shadow-card-hover"]) {
+    border: 1px solid rgba(232, 221, 240, 0.6);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Card hover — lift + gradient border shimmer */
+.hover\:-translate-y-1:hover,
+[class*="hover:shadow-card-hover"]:hover {
+    transform: translateY(-6px) !important;
+    border-color: rgba(83, 43, 124, 0.15);
+}
+
+/* Cards with padding (feature cards, etc.) — glass shine on top */
+.relative.bg-white.shadow-card::before,
+.relative.bg-white.shadow-card-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(83, 43, 124, 0.12) 30%,
+        rgba(139, 102, 168, 0.2) 50%,
+        rgba(83, 43, 124, 0.12) 70%,
+        transparent 100%
+    );
+    border-radius: inherit;
+    z-index: 1;
+}
+
+/* Icon boxes — subtle depth */
+.inline-flex.items-center.justify-center.shrink-0[class*="bg-ugarte-primary"] {
+    box-shadow: 0 4px 12px rgba(83, 43, 124, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.inline-flex.items-center.justify-center.shrink-0[class*="bg-ugarte-primary-50"] {
+    box-shadow: 0 2px 8px rgba(83, 43, 124, 0.06);
+}
+
+/* ——————————————————————————
+   5. BUTTONS — Premium gradients, press, and glow
+   —————————————————————————— */
+/* Primary buttons — gradient + inner shine */
+.bg-ugarte-primary[class*="inline-flex"],
+a.bg-ugarte-primary,
+button.bg-ugarte-primary {
+    background: linear-gradient(135deg, var(--color-ugarte-primary) 0%, var(--color-ugarte-secondary) 100%);
+    box-shadow: 0 2px 8px rgba(83, 43, 124, 0.25),
+                0 8px 24px rgba(83, 43, 124, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-ugarte-primary[class*="inline-flex"]:hover,
+a.bg-ugarte-primary:hover,
+button.bg-ugarte-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(83, 43, 124, 0.3),
+                0 16px 40px rgba(83, 43, 124, 0.18),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.bg-ugarte-primary[class*="inline-flex"]:active,
+a.bg-ugarte-primary:active,
+button.bg-ugarte-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(83, 43, 124, 0.3),
+                inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* White buttons — elegant shadow */
+a[class*="bg-white"][class*="inline-flex"],
+button[class*="bg-white"][class*="inline-flex"] {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a[class*="bg-white"][class*="inline-flex"]:hover,
+button[class*="bg-white"][class*="inline-flex"]:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), 0 8px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* WhatsApp button — branded glow */
+.bg-\[\#25D366\] {
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bg-\[\#25D366\]:hover {
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px) !important;
+}
+
+/* ——————————————————————————
+   6. LABELS / BADGES — Refined glass
+   —————————————————————————— */
+.font-semibold.uppercase.tracking-wider {
+    letter-spacing: 0.14em;
+    transition: all 0.3s ease;
+}
+
+.font-semibold.uppercase.tracking-wider.text-ugarte-secondary {
+    background: linear-gradient(135deg, rgba(83, 43, 124, 0.08) 0%, rgba(101, 63, 135, 0.06) 100%);
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(83, 43, 124, 0.1);
+}
+
+/* Light label on dark/gradient backgrounds */
+.font-semibold.uppercase.tracking-wider.text-white\/80 {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ——————————————————————————
+   7. QUIENES SOMOS — Decorative image frame
+   —————————————————————————— */
+#quienes-somos {
+    position: relative;
+}
+
+/* Decorative gradient orb top-right */
+#quienes-somos::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(83, 43, 124, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Image placeholder — premium background pattern */
+#quienes-somos .aspect-\[4\/3\].bg-ugarte-primary-100 {
+    background: linear-gradient(135deg, var(--color-ugarte-primary-100) 0%, var(--color-ugarte-primary-50) 100%);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(83, 43, 124, 0.1);
+}
+
+#quienes-somos .aspect-\[4\/3\].bg-ugarte-primary-100::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(83, 43, 124, 0.03) 20px,
+        rgba(83, 43, 124, 0.03) 40px
+    );
+    border-radius: inherit;
+}
+
+/* Feature items — subtle hover */
+.flex.items-start.gap-3 {
+    transition: transform 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.flex.items-start.gap-3:hover {
+    transform: translateX(4px);
+}
+
+/* Check icon circle — premium */
+.flex.items-start.gap-3 .shrink-0.text-ugarte-primary {
+    background: linear-gradient(135deg, var(--color-ugarte-primary-50) 0%, rgba(83, 43, 124, 0.08) 100%);
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 1px 4px rgba(83, 43, 124, 0.08);
+}
+
+/* ——————————————————————————
+   8. PROGRAMAS — Card accents
+   —————————————————————————— */
+#programas {
+    position: relative;
+}
+
+/* Subtle background dots pattern */
+#programas::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(83, 43, 124, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#programas > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Accent bar on top of program cards — gradient shimmer */
+[style*="background-color"] {
+    transition: all 0.3s ease;
+}
+
+/* ——————————————————————————
+   9. BENEFICIOS — Section styling
+   —————————————————————————— */
+#beneficios {
+    position: relative;
+}
+
+#beneficios::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(83, 43, 124, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ——————————————————————————
+   10. MISION & VISION — Cards elegant
+   —————————————————————————— */
+#mision-vision .border.border-ugarte-border {
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#mision-vision .border.border-ugarte-border:hover {
+    border-color: var(--color-ugarte-primary-light);
+    box-shadow: 0 8px 32px rgba(83, 43, 124, 0.1),
+                0 0 0 1px rgba(83, 43, 124, 0.06);
+}
+
+/* ——————————————————————————
+   11. POR QUE UGARTE — Stats & dark section premium
+   —————————————————————————— */
+#por-que-ugarte {
+    position: relative;
+    background: linear-gradient(135deg,
+        var(--color-ugarte-primary) 0%,
+        var(--color-ugarte-secondary) 40%,
+        var(--color-ugarte-primary-dark) 100%
+    ) !important;
+}
+
+/* Mesh gradient overlay */
+#por-que-ugarte::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(139, 102, 168, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(101, 63, 135, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 90%, rgba(83, 43, 124, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#por-que-ugarte > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Stats counters — glow text effect */
+#por-que-ugarte .text-3xl,
+#por-que-ugarte [class*="text-4xl"],
+#por-que-ugarte [class*="text-5xl"] {
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+/* Feature cards on dark background — glass effect */
+#por-que-ugarte .relative.bg-white {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: white;
+}
+
+#por-que-ugarte .relative.bg-white:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-4px);
+}
+
+#por-que-ugarte .relative.bg-white .text-ugarte-black,
+#por-que-ugarte .relative.bg-white .text-gray-700,
+#por-que-ugarte .relative.bg-white .text-gray-500 {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#por-que-ugarte .relative.bg-white .text-gray-500,
+#por-que-ugarte .relative.bg-white [class*="text-gray-500"] {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Icon boxes in dark section */
+#por-que-ugarte .inline-flex.items-center.justify-center.shrink-0 {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ——————————————————————————
+   12. GALERIA — Cinematic overlay
+   —————————————————————————— */
+#galeria {
+    position: relative;
+}
+
+/* Gallery items — refined hover */
+#galeria .group {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#galeria .group:hover {
+    transform: translateY(-4px);
+    z-index: 2;
+}
+
+/* Gallery image zoom — smoother */
+#galeria .group img {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+}
+
+#galeria .group:hover img {
+    filter: brightness(1.05) contrast(1.02);
+}
+
+/* Gallery placeholder squares — premium fill */
+#galeria .aspect-square {
+    background: linear-gradient(135deg, var(--color-ugarte-primary-100) 0%, var(--color-ugarte-primary-50) 100%);
+}
+
+/* ——————————————————————————
+   13. TESTIMONIOS — Quote marks & polish
+   —————————————————————————— */
+#testimonios {
+    position: relative;
+}
+
+/* Decorative quote SVG — enhanced */
+#testimonios svg[viewBox="0 0 32 32"] {
+    opacity: 0.12;
+    transform: scale(1.2);
+}
+
+/* Testimonial card glass effect */
+#testimonios .bg-white\/80 {
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(232, 221, 240, 0.5);
+}
+
+/* ——————————————————————————
+   14. FAQ — Refined accordion
+   —————————————————————————— */
+#preguntas-frecuentes {
+    position: relative;
+}
+
+/* Accordion items — smoother transitions */
+#preguntas-frecuentes .rounded-xl.bg-ugarte-bg,
+[class*="accordion"] .rounded-xl {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid transparent;
+}
+
+#preguntas-frecuentes .rounded-xl.bg-ugarte-bg:hover,
+[class*="accordion"] .rounded-xl:hover {
+    border-color: rgba(83, 43, 124, 0.1);
+    box-shadow: 0 2px 12px rgba(83, 43, 124, 0.05);
+}
+
+/* Chevron icon — smooth rotation */
+#preguntas-frecuentes svg,
+[class*="accordion"] svg[class*="transition-transform"] {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ——————————————————————————
+   15. CTA FINAL — Gradient mesh + glow center
+   —————————————————————————— */
+#cta-final {
+    position: relative;
+    background: linear-gradient(135deg,
+        var(--color-ugarte-primary) 0%,
+        var(--color-ugarte-secondary) 35%,
+        var(--color-ugarte-primary-dark) 100%
+    ) !important;
+}
+
+/* Glow orbs */
+#cta-final::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.08) 0%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: ctaGlow 6s ease-in-out infinite;
+}
+
+#cta-final::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 40vw;
+    height: 40vw;
+    max-width: 400px;
+    max-height: 400px;
+    background: radial-gradient(circle, rgba(232, 115, 42, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#cta-final > * {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes ctaGlow {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* CTA heading — dramatic */
+#cta-final h2 {
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ——————————————————————————
+   16. FOOTER — Gradient top border & refined links
+   —————————————————————————— */
+footer {
+    position: relative;
+}
+
+/* Gradient top line */
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--color-ugarte-primary),
+        var(--color-ugarte-secondary-light),
+        var(--color-programa-unas),
+        var(--color-ugarte-primary)
+    );
+    background-size: 300% 100%;
+    animation: footerGradient 8s ease-in-out infinite;
+}
+
+@keyframes footerGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Footer links — smooth underline on hover */
+footer a {
+    transition: all 0.3s ease;
+}
+
+footer a:not([class*="inline-flex"]):hover {
+    padding-left: 4px;
+}
+
+/* Social link circles — premium hover */
+footer .rounded-full[class*="items-center"][class*="justify-center"] {
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+footer .rounded-full[class*="items-center"][class*="justify-center"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(83, 43, 124, 0.3);
+}
+
+/* ——————————————————————————
+   17. MOBILE MENU — Premium slide-in
+   —————————————————————————— */
+/* The slide-in panel — refined shadow */
+.fixed.inset-y-0.right-0.w-72 {
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15),
+                -2px 0 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ——————————————————————————
+   18. WHATSAPP FLOATING BUTTON — Premium
+   —————————————————————————— */
+/* Refined shadow and pulse */
+a[class*="bg-\\[\\#25D366\\]"][class*="h-14"] {
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35),
+                0 8px 32px rgba(37, 211, 102, 0.15);
+}
+
+/* ——————————————————————————
+   19. SCROLL REVEAL ANIMATIONS
+   —————————————————————————— */
+/* lazySection Alpine animation — enhanced with transform3d for GPU */
+.transition-all.duration-700.ease-out {
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    will-change: opacity, transform;
+}
+
+.opacity-0.translate-y-8 {
+    transform: translateY(40px) !important;
+}
+
+/* Grid items stagger — progressive delay */
+.grid > *:nth-child(1) { transition-delay: 0ms; }
+.grid > *:nth-child(2) { transition-delay: 80ms; }
+.grid > *:nth-child(3) { transition-delay: 160ms; }
+.grid > *:nth-child(4) { transition-delay: 240ms; }
+.grid > *:nth-child(5) { transition-delay: 320ms; }
+.grid > *:nth-child(6) { transition-delay: 400ms; }
+
+/* ——————————————————————————
+   20. GENERAL MICRO-INTERACTIONS
+   —————————————————————————— */
+/* All images — subtle hover effect */
+img:not([class*="logo"]):not([class*="avatar"]):not(header img) {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Smooth focus rings */
+*:focus-visible {
+    outline: 2px solid var(--color-ugarte-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+    transition: outline-offset 0.15s ease;
+}
+
+/* ——————————————————————————
+   21. SCROLLBAR — Premium custom
+   —————————————————————————— */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-ugarte-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--color-ugarte-primary-light), var(--color-ugarte-secondary));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ugarte-primary);
+}
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ugarte-primary-light) var(--color-ugarte-bg);
+}
+
+/* ——————————————————————————
+   22. CAROUSEL — Premium dots & controls
+   —————————————————————————— */
+/* Carousel dots — refined */
+[x-data*="carousel"] button[class*="rounded-full"][class*="h-2"] {
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Carousel arrows — glass effect */
+[x-data*="carousel"] button[class*="rounded-full"][class*="h-10"] {
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(232, 221, 240, 0.3);
+    transition: all 0.3s ease;
+}
+
+[x-data*="carousel"] button[class*="rounded-full"][class*="h-10"]:hover {
+    background: var(--color-ugarte-primary) !important;
+    color: white !important;
+    border-color: var(--color-ugarte-primary);
+    box-shadow: 0 4px 16px rgba(83, 43, 124, 0.25);
+}
+
+/* ——————————————————————————
+   23. LIGHT SECTIONS — Subtle noise texture
+   —————————————————————————— */
+.bg-ugarte-bg,
+[class*="bg-ugarte-bg"] {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+    background-color: var(--color-ugarte-bg);
+}
+
+/* ——————————————————————————
+   24. AVATAR — Ring glow
+   —————————————————————————— */
+.rounded-full.overflow-hidden[class*="items-center"] .bg-gradient-to-br {
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ——————————————————————————
+   25. RESPONSIVE POLISH
+   —————————————————————————— */
+@media (max-width: 768px) {
+    /* Reduced decorative elements on mobile */
+    #hero::before,
+    #hero::after,
+    #quienes-somos::before,
+    #beneficios::before,
+    #programas::after {
+        display: none;
+    }
+
+    /* Smaller section padding on mobile */
+    .section-padding {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .section-padding-lg {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    /* Disable stagger on mobile for faster perception */
+    .grid > * {
+        transition-delay: 0ms !important;
+    }
+}
+
+/* ——————————————————————————
+   26. PRINT STYLES
+   —————————————————————————— */
+@media print {
+    header[x-data="navbar"],
+    .fixed,
+    footer::before {
+        display: none !important;
+    }
+
+    .section-padding,
+    .section-padding-sm,
+    .section-padding-lg {
+        padding: 1rem 0 !important;
+    }
+}
+
+/* ——————————————————————————
+   27. LOGIN PAGE CUSTOM STYLES (Stripe/Notion/Linear/Framer)
+   —————————————————————————— */
+
+/* Fade-in animations */
+@keyframes loginFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes loginFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: loginFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+    animation: loginFadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Inputs Stripe inspired */
+.class-login-form input {
+    height: 46px !important;
+    border-color: #E2E8F0 !important;
+    border-width: 1px !important;
+    box-shadow: 0px 1px 2px rgba(83, 43, 124, 0.01) !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    font-size: 14px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+}
+
+.class-login-form input:focus {
+    border-color: #532B7C !important;
+    box-shadow: 0px 1px 2px rgba(83, 43, 124, 0.01), 0 0 0 4px rgba(83, 43, 124, 0.12) !important;
+    outline: none !important;
+}
+
+/* Checkbox alignment & style */
+.class-login-form input[type="checkbox"] {
+    height: 16px !important;
+    width: 16px !important;
+    border-radius: 4px !important;
+    border-color: #D1D5DB !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.class-login-form input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px rgba(83, 43, 124, 0.15) !important;
+}
+
+/* Segmented Control / Role Buttons (Linear inspiration) */
+.class-role-btn {
+    border-color: transparent !important;
+    color: #64748B !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.class-role-btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(83, 43, 124, 0.04) !important;
+    border-color: rgba(83, 43, 124, 0.15) !important;
+    color: #1E293B !important;
+}
+
+.class-role-btn svg {
+    color: #94A3B8;
+    transition: color 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.class-role-btn:hover svg {
+    color: #64748B;
+}
+
+/* Active role selector state */
+button[class*="bg-white text-\\[\\#532B7C\\]"] {
+    background-color: #FFFFFF !important;
+    color: #532B7C !important;
+    border-color: rgba(83, 43, 124, 0.25) !important;
+    box-shadow: 0 3px 10px rgba(83, 43, 124, 0.06), 0 1px 2px rgba(83, 43, 124, 0.03) !important;
+}
+
+button[class*="bg-white text-\\[\\#532B7C\\]"] svg {
+    color: #532B7C !important;
+}
+
+/* Submit Button (Protagonist) */
+.class-btn-submit {
+    height: 48px !important;
+    background: linear-gradient(135deg, #532B7C 0%, #653F87 100%) !important;
+    border: none !important;
+    box-shadow: 0px 4px 12px rgba(83, 43, 124, 0.16), inset 0px 1px 0px rgba(255, 255, 255, 0.15) !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    letter-spacing: 0.01em !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.class-btn-submit:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0px 8px 24px rgba(83, 43, 124, 0.22), inset 0px 1px 0px rgba(255, 255, 255, 0.2) !important;
+}
+
+.class-btn-submit:active {
+    transform: translateY(0) scale(1) !important;
+    box-shadow: 0px 2px 6px rgba(83, 43, 124, 0.2) !important;
+}
+
+
