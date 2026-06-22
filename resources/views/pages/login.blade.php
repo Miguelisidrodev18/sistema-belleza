@@ -249,9 +249,9 @@
 
                         <x-form.input
                             name="email"
-                            label="Correo electrónico o usuario"
-                            type="email"
-                            placeholder="tu@correo.com"
+                            label="Correo o DNI"
+                            type="text"
+                            placeholder="tu@correo.com o 12345678"
                             :required="true"
                         />
 

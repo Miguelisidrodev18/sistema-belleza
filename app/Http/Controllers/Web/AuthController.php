@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -18,16 +20,18 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): RedirectResponse
     {
-        $credentials = $request->only('email', 'password');
-        $role = $request->input('role');
+        $login = trim($request->input('email'));
+        $role  = $request->input('role');
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        $user = User::where('email', $login)
+            ->orWhere('dni', $login)
+            ->first();
+
+        if (! $user || ! Hash::check($request->input('password'), $user->password)) {
             return back()
                 ->withInput($request->only('email', 'role'))
                 ->withErrors(['email' => 'Las credenciales no coinciden con nuestros registros.']);
         }
-
-        $user = Auth::user();
 
         if ($user->role !== $role) {
             Auth::logout();
@@ -43,6 +47,7 @@ class AuthController extends Controller
                 ->withErrors(['email' => 'Tu cuenta ha sido desactivada. Contacta al administrador.']);
         }
 
+        Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
 
         return redirect()->intended(route($user->dashboardRoute()));
