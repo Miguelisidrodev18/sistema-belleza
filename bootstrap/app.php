@@ -17,6 +17,15 @@ return Application::configure(basePath: dirname(__DIR__))
             'active-period'    => \App\Http\Middleware\SetActiveAcademicPeriod::class,
             'password-changed' => \App\Http\Middleware\EnsurePasswordChanged::class,
         ]);
+
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(function ($request) {
+            $user = $request->user();
+            if (! $user) {
+                return '/';
+            }
+            return route($user->dashboardRoute());
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (\Illuminate\Session\TokenMismatchException $e, $request) {
