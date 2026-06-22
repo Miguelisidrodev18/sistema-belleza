@@ -20,7 +20,7 @@ class EnsurePasswordChanged
                 default         => null,
             };
 
-            if ($changeRoute && ! $request->routeIs($changeRoute) && ! $request->routeIs('logout')) {
+            if ($changeRoute && ! $request->routeIs($changeRoute . '*') && ! $request->routeIs('logout')) {
                 return redirect()->route($changeRoute);
             }
         }
