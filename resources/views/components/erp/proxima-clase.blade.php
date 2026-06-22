@@ -1,13 +1,10 @@
 @php
-use App\Academic\ClassSession;
-use App\Models\Enrollment;
-
 $alumnoId = auth()->id();
-$enrollmentSectionIds = Enrollment::where('alumno_id', $alumnoId)
+$enrollmentSectionIds = \App\Models\Enrollment::where('alumno_id', $alumnoId)
     ->where('status', 'activa')
     ->pluck('course_section_id');
 
-$nextSession = ClassSession::with(['courseSection.course', 'meeting'])
+$nextSession = \App\Academic\ClassSession::with(['courseSection.course', 'courseSection.teachers', 'meeting'])
     ->whereIn('course_section_id', $enrollmentSectionIds)
     ->where('starts_at', '>', now())
     ->where('starts_at', '<=', now()->addHours(2))
@@ -30,15 +27,26 @@ $nextSession = ClassSession::with(['courseSection.course', 'meeting'])
                 @if($nextSession->effectiveRoom)
                     · {{ $nextSession->effectiveRoom }}
                 @endif
+                @if($nextSession->effectiveModality)
+                    · {{ $nextSession->effectiveModality->label() }}
+                @endif
             </p>
+            @php $sessionTeacher = $nextSession->courseSection->primaryTeacher(); @endphp
+            @if($sessionTeacher)
+                <p class="text-sm text-gray-500">Docente: <span class="font-medium text-gray-700">{{ $sessionTeacher->name }}</span></p>
+            @endif
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
             @if($nextSession->meeting?->meeting_url)
             <a href="{{ $nextSession->meeting->meeting_url }}" target="_blank"
                class="rounded-lg bg-ugarte-primary px-4 py-2 text-sm font-medium text-white hover:bg-ugarte-dark">
-                Unirse →
+                Ingresar a la clase
             </a>
             @endif
+            <a href="{{ route('alumno.class-sessions.show', ['classSession' => $nextSession, 'tab' => 'materials']) }}"
+               class="rounded-lg border border-ugarte-border bg-white px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                Ver materiales
+            </a>
             <span class="rounded-lg border border-ugarte-primary px-4 py-2 text-sm font-semibold text-ugarte-primary"
                   id="countdown-proxima"></span>
         </div>

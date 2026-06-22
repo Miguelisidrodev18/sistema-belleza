@@ -1,8 +1,7 @@
 <x-layouts.app title="Dashboard">
     @php
-    use App\Academic\ClassSession;
     $teacherId = auth()->id();
-    $todaySessions = ClassSession::with(['courseSection.course', 'meeting'])
+    $todaySessions = \App\Academic\ClassSession::with(['courseSection.course', 'meeting'])
         ->whereHas('courseSection', function ($q) use ($teacherId) {
             $q->whereHas('teachers', fn($t) => $t->where('users.id', $teacherId)->where('course_section_teachers.is_primary', true))
               ->whereHas('academicPeriod', fn($p) => $p->where('is_current', true));

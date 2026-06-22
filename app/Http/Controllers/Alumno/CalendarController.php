@@ -56,6 +56,7 @@ class CalendarController extends Controller
                 'is_live'          => $isLive,
                 'can_join'         => $canJoin,
                 'attendance_taken' => $atTaken,
+                'show_url'         => route('alumno.class-sessions.show', $session),
             ];
         });
 

@@ -23,6 +23,8 @@ use App\Http\Controllers\Alumno\DashboardController as AlumnoDashboardController
 use App\Http\Controllers\Alumno\EnrollmentController as AlumnoEnrollmentController;
 use App\Http\Controllers\Alumno\ProfileController as AlumnoProfileController;
 use App\Http\Controllers\Alumno\CalendarController as AlumnoCalendarController;
+use App\Http\Controllers\Alumno\ClassSessionController as AlumnoClassSessionController;
+use App\Http\Controllers\Alumno\SectionController as AlumnoSectionController;
 use App\Http\Controllers\Admin\MaterialController as AdminMaterialController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Docente\MaterialController as DocenteMaterialController;
@@ -166,5 +168,11 @@ Route::middleware(['auth', 'active', 'active-period', 'password-changed'])->grou
                 ->name('materials.download');
             Route::get('sections/{courseSection}/materials', [AlumnoMaterialController::class, 'sectionMaterials'])
                 ->name('sections.materials');
+
+            // Fase 5.1 — Experiencia del Alumno
+            Route::get('class-sessions/{classSession}', [AlumnoClassSessionController::class, 'show'])
+                ->name('class-sessions.show');
+            Route::get('sections/{courseSection}', [AlumnoSectionController::class, 'show'])
+                ->name('sections.show');
         });
 });

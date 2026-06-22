@@ -24,10 +24,11 @@
         {{-- Tab bar --}}
         <div class="flex gap-1 border-b border-ugarte-border mb-5">
             @foreach([
-                ['id' => 'info',       'label' => 'Información'],
-                ['id' => 'asistencia', 'label' => 'Asistencia'],
-                ['id' => 'materials',  'label' => 'Materiales'],
-                ['id' => 'meeting',    'label' => 'Meeting'],
+                ['id' => 'info',         'label' => 'Información'],
+                ['id' => 'asistencia',   'label' => 'Asistencia'],
+                ['id' => 'materials',    'label' => 'Materiales'],
+                ['id' => 'meeting',      'label' => 'Meeting'],
+                ['id' => 'participants', 'label' => 'Participantes'],
             ] as $t)
             <button @click="tab = '{{ $t['id'] }}'"
                     class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors"
@@ -38,6 +39,9 @@
                 @endif
                 @if($t['id'] === 'materials')
                 <span class="ml-1.5 rounded-full bg-ugarte-primary/10 px-1.5 text-[10px] font-bold text-ugarte-primary">{{ $sessionMaterials->count() }}</span>
+                @endif
+                @if($t['id'] === 'participants')
+                <span class="ml-1.5 rounded-full bg-gray-100 px-1.5 text-[10px] font-bold text-gray-600">{{ $enrollments->count() }}</span>
                 @endif
             </button>
             @endforeach
@@ -300,6 +304,17 @@
                     Puedes agregar un enlace desde la pestaña "Información".
                 </p>
                 @endif
+            </div>
+        </div>
+
+        {{-- TAB: Participantes --}}
+        <div x-show="tab === 'participants'" x-cloak>
+            <div class="rounded-xl border border-ugarte-border bg-white p-5 shadow-sm">
+                <x-lms.participants-list
+                    :enrollments="$enrollments"
+                    :primaryTeacher="$classSession->courseSection->primaryTeacher()"
+                    role="docente"
+                />
             </div>
         </div>
     </div>

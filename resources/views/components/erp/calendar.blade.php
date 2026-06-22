@@ -227,6 +227,14 @@ dayjs.extend(window.dayjs_plugin_isoWeek);
                 </a>
             </template>
 
+            {{-- Link ver sesión --}}
+            <template x-if="selectedEvent?.show_url">
+                <a :href="selectedEvent.show_url"
+                   class="flex w-full items-center justify-center gap-2 rounded-lg border border-ugarte-border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                    Ver sesión completa
+                </a>
+            </template>
+
         </div>
     </div>
 </div>
