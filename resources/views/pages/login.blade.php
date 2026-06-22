@@ -225,8 +225,25 @@
                         </button>
                     </div>
 
+                    {{-- Errores de validación --}}
+                    @if($errors->any())
+                        <div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3">
+                            <ul class="list-disc space-y-1 pl-4 text-sm text-red-700">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     {{-- Formulario de login --}}
-                    <form method="POST" action="#" class="space-y-6 class-login-form">
+                    <form method="POST" action="{{ route('login') }}" class="space-y-6 class-login-form">
                         @csrf
                         <input type="hidden" name="role" :value="selectedRole">
 

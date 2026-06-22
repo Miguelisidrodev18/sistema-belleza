@@ -1,0 +1,105 @@
+<?php
+
+return [
+    [
+        'name'            => 'Barbería',
+        'color'           => '#1D1D1B',
+        'duration_months' => 6,
+        'total_hours'     => 480,
+        'sort_order'      => 1,
+        'courses'         => [
+            ['name' => 'Fundamentos de Barbería', 'code' => 'BAR101', 'hours' => 80, 'sort_order' => 1],
+            ['name' => 'Técnicas de Corte Masculino', 'code' => 'BAR102', 'hours' => 120, 'sort_order' => 2],
+            ['name' => 'Arreglo de Barba y Bigote', 'code' => 'BAR103', 'hours' => 100, 'sort_order' => 3],
+            ['name' => 'Práctica Profesional Barbería', 'code' => 'BAR104', 'hours' => 180, 'sort_order' => 4],
+        ],
+    ],
+    [
+        'name'            => 'Estilismo',
+        'color'           => '#7B3FA0',
+        'duration_months' => 12,
+        'total_hours'     => 960,
+        'sort_order'      => 2,
+        'courses'         => [
+            ['name' => 'Fundamentos de Estilismo', 'code' => 'EST101', 'hours' => 120, 'sort_order' => 1],
+            ['name' => 'Colorimetría y Tintes', 'code' => 'EST102', 'hours' => 200, 'sort_order' => 2],
+            ['name' => 'Peinados y Acabados', 'code' => 'EST103', 'hours' => 180, 'sort_order' => 3],
+            ['name' => 'Práctica Profesional Estilismo', 'code' => 'EST104', 'hours' => 460, 'sort_order' => 4],
+        ],
+    ],
+    [
+        'name'            => 'Podología',
+        'color'           => '#2ABFBF',
+        'duration_months' => 6,
+        'total_hours'     => 480,
+        'sort_order'      => 3,
+        'courses'         => [
+            ['name' => 'Anatomía y Fisiología del Pie', 'code' => 'POD101', 'hours' => 80, 'sort_order' => 1],
+            ['name' => 'Técnicas Podológicas Básicas', 'code' => 'POD102', 'hours' => 120, 'sort_order' => 2],
+            ['name' => 'Podología Clínica', 'code' => 'POD103', 'hours' => 100, 'sort_order' => 3],
+            ['name' => 'Práctica Profesional Podología', 'code' => 'POD104', 'hours' => 180, 'sort_order' => 4],
+        ],
+    ],
+    [
+        'name'            => 'Maquillaje',
+        'color'           => '#E91E8C',
+        'duration_months' => 6,
+        'total_hours'     => 480,
+        'sort_order'      => 4,
+        'courses'         => [
+            ['name' => 'Teoría del Color y Maquillaje', 'code' => 'MAQ101', 'hours' => 80, 'sort_order' => 1],
+            ['name' => 'Maquillaje Social y Artístico', 'code' => 'MAQ102', 'hours' => 150, 'sort_order' => 2],
+            ['name' => 'Caracterización y Efectos', 'code' => 'MAQ103', 'hours' => 100, 'sort_order' => 3],
+            ['name' => 'Práctica Profesional Maquillaje', 'code' => 'MAQ104', 'hours' => 150, 'sort_order' => 4],
+        ],
+    ],
+    [
+        'name'            => 'Microblading',
+        'color'           => '#1B2A4A',
+        'duration_months' => 3,
+        'total_hours'     => 240,
+        'sort_order'      => 5,
+        'courses'         => [
+            ['name' => 'Bioseguridad y Preparación', 'code' => 'MBL101', 'hours' => 40, 'sort_order' => 1],
+            ['name' => 'Técnica de Microblading', 'code' => 'MBL102', 'hours' => 120, 'sort_order' => 2],
+            ['name' => 'Práctica Profesional Microblading', 'code' => 'MBL103', 'hours' => 80, 'sort_order' => 3],
+        ],
+    ],
+    [
+        'name'            => 'Dermopigmentación',
+        'color'           => '#6B7280',
+        'duration_months' => 3,
+        'total_hours'     => 240,
+        'sort_order'      => 6,
+        'courses'         => [
+            ['name' => 'Fundamentos de Dermopigmentación', 'code' => 'DPG101', 'hours' => 60, 'sort_order' => 1],
+            ['name' => 'Técnicas Avanzadas', 'code' => 'DPG102', 'hours' => 100, 'sort_order' => 2],
+            ['name' => 'Práctica Profesional Dermopigmentación', 'code' => 'DPG103', 'hours' => 80, 'sort_order' => 3],
+        ],
+    ],
+    [
+        'name'            => 'Sistema de Uñas',
+        'color'           => '#E8732A',
+        'duration_months' => 6,
+        'total_hours'     => 480,
+        'sort_order'      => 7,
+        'courses'         => [
+            ['name' => 'Anatomía de la Uña', 'code' => 'UNA101', 'hours' => 60, 'sort_order' => 1],
+            ['name' => 'Uñas Acrílicas y de Gel', 'code' => 'UNA102', 'hours' => 140, 'sort_order' => 2],
+            ['name' => 'Nail Art y Decoración', 'code' => 'UNA103', 'hours' => 100, 'sort_order' => 3],
+            ['name' => 'Práctica Profesional Uñas', 'code' => 'UNA104', 'hours' => 180, 'sort_order' => 4],
+        ],
+    ],
+    [
+        'name'            => 'Estética de Pestañas y Cejas',
+        'color'           => '#00B4D8',
+        'duration_months' => 3,
+        'total_hours'     => 240,
+        'sort_order'      => 8,
+        'courses'         => [
+            ['name' => 'Diseño de Cejas', 'code' => 'PCJ101', 'hours' => 60, 'sort_order' => 1],
+            ['name' => 'Extensión de Pestañas', 'code' => 'PCJ102', 'hours' => 100, 'sort_order' => 2],
+            ['name' => 'Práctica Profesional Pestañas y Cejas', 'code' => 'PCJ103', 'hours' => 80, 'sort_order' => 3],
+        ],
+    ],
+];
