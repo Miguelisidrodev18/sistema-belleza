@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CourseSectionController;
 use App\Http\Controllers\Admin\EnrollmentController;
+use App\Http\Controllers\Admin\BulkEnrollmentController;
 use App\Http\Controllers\Admin\ReEnrollmentController;
 use App\Http\Controllers\Admin\ClassSessionController;
 use App\Http\Controllers\Admin\ScheduleController;
@@ -71,6 +72,10 @@ Route::middleware(['auth', 'active', 'active-period', 'password-changed'])->grou
                 ->name('course-sections.show');
 
             // Fase 3 — Matrículas
+            Route::get('enrollments/bulk', [BulkEnrollmentController::class, 'index'])->name('enrollments.bulk');
+            Route::get('enrollments/bulk/sections', [BulkEnrollmentController::class, 'sections'])->name('enrollments.bulk.sections');
+            Route::get('enrollments/bulk/students', [BulkEnrollmentController::class, 'students'])->name('enrollments.bulk.students');
+            Route::post('enrollments/bulk/execute', [BulkEnrollmentController::class, 'execute'])->name('enrollments.bulk.execute');
             Route::resource('enrollments', EnrollmentController::class)->except('show');
             Route::get('re-enrollment', [ReEnrollmentController::class, 'index'])->name('re-enrollment.index');
             Route::post('re-enrollment/preview', [ReEnrollmentController::class, 'preview'])->name('re-enrollment.preview');

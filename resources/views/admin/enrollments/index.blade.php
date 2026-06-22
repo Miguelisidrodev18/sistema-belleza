@@ -1,7 +1,12 @@
 <x-layouts.app title="Matrículas">
     <x-slot:actions>
-        <a href="{{ route('admin.enrollments.create') }}"
+        <a href="{{ route('admin.enrollments.bulk') }}"
            class="flex items-center gap-2 rounded-lg bg-ugarte-primary px-4 py-2 text-sm font-semibold text-white hover:bg-ugarte-primary/90 transition-colors">
+            <x-erp.icon name="users" class="h-4 w-4" />
+            Matrícula Masiva
+        </a>
+        <a href="{{ route('admin.enrollments.create') }}"
+           class="flex items-center gap-2 rounded-lg border border-ugarte-border bg-white px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 transition-colors">
             <x-erp.icon name="plus" class="h-4 w-4" />
             Nueva Matrícula
         </a>
