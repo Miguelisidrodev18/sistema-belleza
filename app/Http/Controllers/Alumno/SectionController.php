@@ -18,7 +18,7 @@ class SectionController extends Controller
 
         $enrollment = Enrollment::where('alumno_id', $alumnoId)
             ->where('course_section_id', $courseSection->id)
-            ->where('status', 'activa')
+            ->whereIn('status', ['activa', 'completada'])
             ->first();
 
         if (! $enrollment) {

@@ -4,10 +4,10 @@
 ])
 
 @php
-    $present = $attendances->where('status', 'present')->count();
-    $late    = $attendances->where('status', 'late')->count();
-    $absent  = $attendances->where('status', 'absent')->count();
-    $excused = $attendances->where('status', 'excused')->count();
+    $present = $attendances->where('status', \App\Enums\AttendanceStatus::Present)->count();
+    $late    = $attendances->where('status', \App\Enums\AttendanceStatus::Late)->count();
+    $absent  = $attendances->where('status', \App\Enums\AttendanceStatus::Absent)->count();
+    $excused = $attendances->where('status', \App\Enums\AttendanceStatus::Excused)->count();
     $attended = $present + $late;
     $total = $attendances->count();
     $rate = $total > 0 ? round(($attended / $total) * 100) : 0;
@@ -55,23 +55,24 @@
         <h4 class="mb-2 text-sm font-semibold text-gray-700">Detalle por clase</h4>
         <div class="space-y-1.5">
             @foreach($attendances->sortBy('classSession.session_number') as $att)
-                <div class="flex items-center gap-3 rounded-md px-3 py-2 text-sm
-                    @switch($att->status)
-                        @case('present') bg-green-50 @break
-                        @case('late') bg-yellow-50 @break
-                        @case('absent') bg-red-50 @break
-                        @case('excused') bg-blue-50 @break
-                        @default bg-gray-50
-                    @endswitch
-                ">
-                    <span class="shrink-0 text-base">
-                        @switch($att->status)
-                            @case('present') ✔ @break
-                            @case('late') ⏰ @break
-                            @case('absent') ❌ @break
-                            @case('excused') 📋 @break
-                        @endswitch
-                    </span>
+                @php
+                    $bgClass = match($att->status) {
+                        \App\Enums\AttendanceStatus::Present => 'bg-green-50',
+                        \App\Enums\AttendanceStatus::Late    => 'bg-yellow-50',
+                        \App\Enums\AttendanceStatus::Absent  => 'bg-red-50',
+                        \App\Enums\AttendanceStatus::Excused => 'bg-blue-50',
+                        default => 'bg-gray-50',
+                    };
+                    $icon = match($att->status) {
+                        \App\Enums\AttendanceStatus::Present => '✔',
+                        \App\Enums\AttendanceStatus::Late    => '⏰',
+                        \App\Enums\AttendanceStatus::Absent  => '❌',
+                        \App\Enums\AttendanceStatus::Excused => '📋',
+                        default => '—',
+                    };
+                @endphp
+                <div class="flex items-center gap-3 rounded-md px-3 py-2 text-sm {{ $bgClass }}">
+                    <span class="shrink-0 text-base">{{ $icon }}</span>
                     <span class="flex-1 font-medium text-gray-800">
                         Clase {{ $att->classSession->session_number ?? '?' }}
                         @if($att->classSession?->title)
@@ -81,8 +82,8 @@
                     <span class="shrink-0 text-xs text-gray-500">
                         {{ $att->classSession?->starts_at?->format('d/m') }}
                     </span>
-                    <span class="shrink-0 text-xs font-medium {{ \App\Enums\AttendanceStatus::from($att->status)->badgeClass() }} rounded-full px-1.5 py-0.5">
-                        {{ \App\Enums\AttendanceStatus::from($att->status)->label() }}
+                    <span class="shrink-0 text-xs font-medium {{ $att->status->badgeClass() }} rounded-full px-1.5 py-0.5">
+                        {{ $att->status->label() }}
                     </span>
                 </div>
             @endforeach
