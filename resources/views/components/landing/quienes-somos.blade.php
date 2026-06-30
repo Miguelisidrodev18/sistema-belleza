@@ -1,5 +1,9 @@
 @props([])
 
+@php
+    $aboutImage = \App\Models\SiteSetting::get('about_image');
+@endphp
+
 <x-ui.section id="quienes-somos" bg="light">
     <x-ui.grid cols="2" gap="12">
         <div class="flex flex-col justify-center">
@@ -22,8 +26,11 @@
         </div>
 
         <div class="flex items-center justify-center">
-            {{-- Placeholder for institutional image --}}
-            <div class="aspect-[4/3] w-full rounded-2xl bg-ugarte-primary-100"></div>
+            @if($aboutImage)
+                <img src="{{ url('storage/' . $aboutImage) }}" alt="Instalaciones Ugarte" class="aspect-4/3 w-full rounded-2xl object-cover">
+            @else
+                <div class="aspect-4/3 w-full rounded-2xl bg-ugarte-primary-100"></div>
+            @endif
         </div>
     </x-ui.grid>
 </x-ui.section>

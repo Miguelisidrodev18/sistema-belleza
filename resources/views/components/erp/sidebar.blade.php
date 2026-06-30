@@ -16,6 +16,8 @@
         ['section' => 'Programación'],
         ['label' => 'Sesiones',            'route' => 'admin.class-sessions.index',     'icon' => 'clock',        'prefix' => 'admin.class-sessions'],
         ['label' => 'Generar Sesiones',    'route' => 'admin.session-generator.index',  'icon' => 'calendar-days','prefix' => 'admin.session-generator'],
+        ['section' => 'Sitio Web'],
+        ['label' => 'Landing Page',        'route' => 'admin.site-settings.landing.edit', 'icon' => 'photo',      'prefix' => 'admin.site-settings'],
     ];
 
     $docenteNav = [

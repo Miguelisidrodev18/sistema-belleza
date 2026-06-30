@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\ReEnrollmentController;
 use App\Http\Controllers\Admin\ClassSessionController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SessionGeneratorController;
+use App\Http\Controllers\Admin\LandingSettingController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Docente\DashboardController as DocenteDashboardController;
 use App\Http\Controllers\Docente\ProfileController as DocenteProfileController;
 use App\Http\Controllers\Docente\SectionController as DocenteSectionController;
@@ -109,6 +111,22 @@ Route::middleware(['auth', 'active', 'active-period', 'password-changed'])->grou
                 ->name('session-generator.simulate');
             Route::post('session-generator/generate', [SessionGeneratorController::class, 'generate'])
                 ->name('session-generator.generate');
+
+            // Apariencia de la Landing
+            Route::get('site-settings/landing', [LandingSettingController::class, 'edit'])
+                ->name('site-settings.landing.edit');
+            Route::put('site-settings/landing/hero', [LandingSettingController::class, 'updateHero'])
+                ->name('site-settings.landing.hero.update');
+            Route::put('site-settings/landing/about', [LandingSettingController::class, 'updateAbout'])
+                ->name('site-settings.landing.about.update');
+            Route::put('site-settings/landing/gallery', [LandingSettingController::class, 'updateGallery'])
+                ->name('site-settings.landing.gallery.update');
+            Route::delete('site-settings/landing/media/{key}', [LandingSettingController::class, 'removeMedia'])
+                ->name('site-settings.landing.remove-media');
+
+            // Galería
+            Route::post('gallery/{category}', [GalleryController::class, 'store'])->name('gallery.store');
+            Route::delete('gallery/{galleryImage}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
         });
 
     // Docente routes

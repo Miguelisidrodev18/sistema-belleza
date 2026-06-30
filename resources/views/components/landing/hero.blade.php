@@ -1,6 +1,39 @@
 @props([])
 
-<x-ui.section id="hero" bg="gradient" padding="none" :animated="false">
+@php
+    $heroBgType   = \App\Models\SiteSetting::get('hero_bg_type', 'gradient');
+    $heroImage    = \App\Models\SiteSetting::get('hero_image');
+    $heroVideo    = \App\Models\SiteSetting::get('hero_video');
+    $videoStart   = (float) (\App\Models\SiteSetting::get('hero_video_start', 0));
+    $videoEnd     = (float) (\App\Models\SiteSetting::get('hero_video_end', 0));
+    $hasTrim      = $heroVideo && $videoEnd > 0 && $videoEnd > $videoStart;
+@endphp
+
+<x-ui.section id="hero" :bg="$heroBgType === 'gradient' ? 'gradient' : 'dark'" padding="none" :animated="false">
+    @if($heroBgType === 'image' && $heroImage)
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ url('storage/' . $heroImage) }}')"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-ugarte-primary/80 to-ugarte-secondary/70"></div>
+    @elseif($heroBgType === 'video' && $heroVideo)
+        <video
+            class="absolute inset-0 h-full w-full object-cover"
+            autoplay muted playsinline
+            {{ $hasTrim ? '' : 'loop' }}
+            @if($hasTrim)
+                x-data="{ s: {{ $videoStart }}, e: {{ $videoEnd }} }"
+                x-init="
+                    $el.currentTime = s;
+                    $el.play();
+                    $el.addEventListener('timeupdate', () => {
+                        if ($el.currentTime >= e) { $el.currentTime = s; $el.play(); }
+                    });
+                "
+            @endif
+        >
+            <source src="{{ url('storage/' . $heroVideo) }}" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-br from-ugarte-primary/70 to-ugarte-secondary/60"></div>
+    @endif
+
     <div class="section-container relative z-10 flex min-h-screen flex-col items-center justify-center pt-20 text-center">
         <x-feedback.badge variant="primary" class="mb-6 bg-white/20 text-white">
             Certificado por el Ministerio de Educación

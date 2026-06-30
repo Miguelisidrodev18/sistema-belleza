@@ -10,13 +10,175 @@ class HomeController extends Controller
     public function index(): View
     {
         return view('pages.home', [
-            'carrerasTecnicas' => config('programs'),
-            'modulosCertificados' => [],
-            'cursosPerfeccionamiento' => [],
-            'cursosExtension' => [],
-            'faqs' => $this->getFaqs(),
-            'testimonials' => $this->getTestimonials(),
+            'carrerasTecnicas'        => config('programs'),
+            'modulosCertificados'     => $this->getModulosCertificados(),
+            'cursosPerfeccionamiento' => $this->getCursosPerfeccionamiento(),
+            'cursosExtension'         => $this->getCursosExtension(),
+            'faqs'                    => $this->getFaqs(),
+            'testimonials'            => $this->getTestimonials(),
         ]);
+    }
+
+    private function getCursosExtension(): array
+    {
+        return [
+            [
+                'name'              => 'Corte de Cabello Básico',
+                'slug'              => 'corte-cabello-basico',
+                'color'             => '#7B3FA0',
+                'icon'              => 'sparkles',
+                'short_description' => 'Aprende los fundamentos del corte femenino y masculino para dar tus primeros pasos en el mundo del estilismo.',
+                'duration'          => '2 meses',
+            ],
+            [
+                'name'              => 'Maquillaje Social',
+                'slug'              => 'maquillaje-social',
+                'color'             => '#E91E8C',
+                'icon'              => 'sparkles',
+                'short_description' => 'Técnicas esenciales de maquillaje de día y noche para lucir perfecta en cualquier evento social.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Manicura y Pedicura',
+                'slug'              => 'manicura-pedicura',
+                'color'             => '#E8732A',
+                'icon'              => 'sparkles',
+                'short_description' => 'Tratamientos básicos de manos y pies: esmaltado, cuidado de cutícula y técnicas de uñas naturales.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Diseño de Cejas',
+                'slug'              => 'diseno-cejas',
+                'color'             => '#1B2A4A',
+                'icon'              => 'eye',
+                'short_description' => 'Definición, depilación y diseño de cejas para lograr un resultado natural, simétrico y profesional.',
+                'duration'          => '3 semanas',
+            ],
+            [
+                'name'              => 'Barbería Básica',
+                'slug'              => 'barberia-basica',
+                'color'             => '#1D1D1B',
+                'icon'              => 'sparkles',
+                'short_description' => 'Introducción a la barbería: corte masculino, perfilado de barba y manejo correcto de maquinilla.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Depilación Profesional',
+                'slug'              => 'depilacion-profesional',
+                'color'             => '#2ABFBF',
+                'icon'              => 'sparkles',
+                'short_description' => 'Técnicas de depilación con cera, hilo y láminas para brindar un servicio seguro y de calidad.',
+                'duration'          => '3 semanas',
+            ],
+        ];
+    }
+
+    private function getModulosCertificados(): array
+    {
+        return [
+            [
+                'name'              => 'Colorimetría y Tintes',
+                'slug'              => 'colorimetria-tintes',
+                'color'             => '#7B3FA0',
+                'icon'              => 'sparkles',
+                'short_description' => 'Domina la teoría del color, técnicas de coloración, tintes y corrección cromática con certificado oficial.',
+                'duration'          => '2 meses',
+            ],
+            [
+                'name'              => 'Extensiones de Pestañas',
+                'slug'              => 'extensiones-pestanas',
+                'color'             => '#00B4D8',
+                'icon'              => 'eye',
+                'short_description' => 'Extensión pelo a pelo, volumen ruso y mega volumen para una mirada impactante con certificación.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Micropigmentación de Cejas',
+                'slug'              => 'micropigmentacion-cejas',
+                'color'             => '#1B2A4A',
+                'icon'              => 'pencil',
+                'short_description' => 'Microblading y shading para diseño de cejas permanente con resultados naturales y certificado.',
+                'duration'          => '6 semanas',
+            ],
+            [
+                'name'              => 'Cosmetología y Skincare',
+                'slug'              => 'cosmetologia-skincare',
+                'color'             => '#2ABFBF',
+                'icon'              => 'sparkles',
+                'short_description' => 'Tratamientos faciales, limpieza profunda, peelings y cuidado integral de la piel certificado.',
+                'duration'          => '2 meses',
+            ],
+            [
+                'name'              => 'Nail Art Profesional',
+                'slug'              => 'nail-art-profesional',
+                'color'             => '#E8732A',
+                'icon'              => 'sparkles',
+                'short_description' => 'Diseños artísticos en uñas: pintura a mano, stamping, foil y técnicas de decoración avanzadas.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Maquillaje para Eventos',
+                'slug'              => 'maquillaje-eventos',
+                'color'             => '#E91E8C',
+                'icon'              => 'sparkles',
+                'short_description' => 'Técnicas de maquillaje nupcial, de pasarela y para ocasiones especiales con certificación profesional.',
+                'duration'          => '6 semanas',
+            ],
+        ];
+    }
+
+    private function getCursosPerfeccionamiento(): array
+    {
+        return [
+            [
+                'name'              => 'Balayage y Técnicas Avanzadas',
+                'slug'              => 'balayage-tecnicas-avanzadas',
+                'color'             => '#7B3FA0',
+                'icon'              => 'sparkles',
+                'short_description' => 'Domina balayage, babylights e iluminación libre para ofrecer resultados de alta gama en tu salón.',
+                'duration'          => '3 semanas',
+            ],
+            [
+                'name'              => 'Maquillaje Artístico',
+                'slug'              => 'maquillaje-artistico',
+                'color'             => '#E91E8C',
+                'icon'              => 'sparkles',
+                'short_description' => 'Efectos especiales, fantasía y caracterización para producciones de moda, teatro y medios audiovisuales.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Barbería Pro: Fade y Diseños',
+                'slug'              => 'barberia-pro-fade',
+                'color'             => '#1D1D1B',
+                'icon'              => 'sparkles',
+                'short_description' => 'Fade americano, skin fade, diseños geométricos y barbería artística para un nivel profesional competitivo.',
+                'duration'          => '3 semanas',
+            ],
+            [
+                'name'              => 'Gestión de Salón de Belleza',
+                'slug'              => 'gestion-salon-belleza',
+                'color'             => '#6B7280',
+                'icon'              => 'briefcase',
+                'short_description' => 'Aprende a administrar tu propio negocio: costos, fidelización de clientes y marketing digital.',
+                'duration'          => '1 mes',
+            ],
+            [
+                'name'              => 'Ondas y Alisados Especializados',
+                'slug'              => 'ondas-alisados-especializados',
+                'color'             => '#2ABFBF',
+                'icon'              => 'sparkles',
+                'short_description' => 'Permanente, alisado brasileño, keratina y nanoplastia: tratamientos químicos avanzados para profesionales.',
+                'duration'          => '3 semanas',
+            ],
+            [
+                'name'              => 'Sistema de Uñas Avanzado',
+                'slug'              => 'sistema-unas-avanzado',
+                'color'             => '#E8732A',
+                'icon'              => 'sparkles',
+                'short_description' => 'Acrílico, gel y polygel con técnicas de esculpido, cobertura y diseños de nivel competencia.',
+                'duration'          => '3 semanas',
+            ],
+        ];
     }
 
     private function getFaqs(): array
